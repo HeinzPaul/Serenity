@@ -5,19 +5,28 @@ from flask import send_from_directory
 from pymongo import MongoClient
 import bcrypt
 from bson.objectid import ObjectId
+import os
+from dotenv import load_dotenv
 
 app = Flask(__name__,static_folder='static')
 CORS(app)
 
-genai.configure(api_key="AIzaSyDF2aQzKl0Krv9F30Qj6hLYB0kN3sZfiXs")
+# Load environment variables from .env file
+load_dotenv()
+
+# Fetch the API key from the environment variables
+genai_api_key = os.getenv("gemini_api_key")
+
+# Configure the Generative AI model with the API key
+genai.configure(api_key=genai_api_key)
 model = genai.GenerativeModel("gemini-2.0-flash")
 
-MONGO_URI = "mongodb+srv://heinzbinjupaul:HEINZISTHEBEST@cluster0.uhtsv.mongodb.net/"
+MONGO_URI = os.getenv("DATABASE_URL")
 
 client = MongoClient(MONGO_URI)
 
 # Configure secret key for session management
-app.secret_key = "Iamheinzpaul"
+app.secret_key = os.getenv("SECRET_KEY")
 
 db = client["Serenity"]
 user_data = db["user_data"]
