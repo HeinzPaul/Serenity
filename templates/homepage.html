@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Serenity</title>
+    <style>
+        :root {
+            --primary: #FF9AA2;
+            /* Soft pink */
+            --primary-light: #FFDAC1;
+            /* Light peach */
+            --primary-dark: #E2757E;
+            /* Dark pink */
+            --accent: #B5EAD7;
+            /* Mint green */
+            --accent-light: #C7F9CC;
+            /* Light mint */
+            --bg-light: #f8e0e0;
+            /* White */
+            --bg-off: #F9F7F7;
+            /* Off white */
+            --text-dark: #454545;
+            /* Dark gray */
+            --text-medium: #666666;
+            /* Medium gray */
+            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 5px 20px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --radius-sm: 10px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Jetbrains Mono';
+            background: var(--bg-light);
+            color: var(--text-dark);
+            min-height: 100vh;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        header {
+            background: white;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow-sm);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        nav a {
+            color: var(--text-dark);
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.6rem 1.2rem;
+            border: 2px solid var(--primary-light);
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background: var(--primary-light);
+            color: var(--text-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        main {
+            padding: 5rem 2rem;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--bg-light);
+        }
+
+        main h2 {
+            font-size: 3rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        main p {
+            font-size: 1.2rem;
+            color: var(--text-medium);
+            max-width: 700px;
+            margin: 0 auto 2.5rem auto;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: var(--bg-light);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow-lg);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .modal-content h3 {
+            margin-top: 0;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .modal-content input {
+            background: var(--bg-off);
+            border: 2px solid var(--primary-light);
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .modal-content input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 154, 162, 0.2);
+            outline: none;
+        }
+
+        .modal-content button {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            transition: var(--transition);
+            color: white;
+            padding: 0.9rem;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+
+        .modal-content button:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .close-btn {
+            color: var(--text-medium);
+            transition: var(--transition);
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: var(--primary-dark);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        main {
+            animation: fadeIn 1s ease-out;
+        }
+
+        .error-message {
+            background: rgba(255, 0, 0, 0.05);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            color: #e74c3c;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: var(--radius-sm);
+            display: none;
+            text-align: center;
+        }
+
+        .modal-content form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .modal-content label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--text-medium);
+        }
+
+        .modal-content input {
+            padding: 14px;
+            border-radius: var(--radius-sm);
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+
+        .bg-decoration {
+            position: absolute;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        .bg-circle-1 {
+            top: 10%;
+            left: 5%;
+            width: 300px;
+            height: 300px;
+            background: var(--accent-light);
+            border-radius: 50%;
+            filter: blur(50px);
+        }
+
+        .bg-circle-2 {
+            bottom: 5%;
+            right: 10%;
+            width: 250px;
+            height: 250px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            filter: blur(60px);
+        }
+
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+            padding: 2rem 0;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            width: 280px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: var(--primary-dark);
+            font-size: 1.8rem;
+        }
+
+        .feature-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+
+        .loader {
+            width: 48px;
+            height: 48px;
+            margin: auto;
+            position: relative;
+        }
+
+        .loader:before {
+            content: '';
+            width: 48px;
+            height: 5px;
+            background: #f0808050;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            border-radius: 50%;
+            animation: shadow324 0.5s linear infinite;
+        }
+
+        .loader:after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            background: #f08080;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 4px;
+            animation: jump7456 0.5s linear infinite;
+        }
+
+        @keyframes jump7456 {
+            15% {
+                border-bottom-right-radius: 3px;
+            }
+
+            25% {
+                transform: translateY(9px) rotate(22.5deg);
+            }
+
+            50% {
+                transform: translateY(18px) scale(1, .9) rotate(45deg);
+                border-bottom-right-radius: 40px;
+            }
+
+            75% {
+                transform: translateY(9px) rotate(67.5deg);
+            }
+
+            100% {
+                transform: translateY(0) rotate(90deg);
+            }
+        }
+
+        @keyframes shadow324 {
+
+            0%,
+            100% {
+                transform: scale(1, 1);
+            }
+
+            50% {
+                transform: scale(1.2, 1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <header>
+        <h1>Serenity</h1>
+        <nav>
+            <a href="signup">Sign Up</a>
+            <a href="#" onclick="openLogin()">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="hero-section">
+            <div class="loader"></div>
+            <h2>Your Friendly AI Companion</h2>
+            <p>
+                Serenity is a gentle, supportive AI companion that listens, remembers, and helps you navigate life's
+                challenges. Whether you're feeling down, need a friend to talk to, or just want to share your thoughts,
+                Serenity is here for you 24/7 — kind, confidential, and always learning how to support you better.
+            </p>
+            <a href="signup" class="btn">Start Your Journey</a>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">💭</div>
+                <h3>Judgment-Free Zone</h3>
+                <p>Share your thoughts and feelings in a safe space where you'll always be met with compassion and
+                    understanding.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌱</div>
+                <h3>Personal Growth</h3>
+                <p>Discover insights about yourself and develop healthy coping strategies for life's challenges.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Private & Secure</h3>
+                <p>Your conversations are completely private, ensuring your thoughts remain your own.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeLogin()">&times;</span>
+            <h3>Welcome Back</h3>
+            <div id="login-error" class="error-message"></div>
+            <form id="loginForm" action="/login" method="POST">
+                <div>
+                    <label for="login_user">Email</label>
+                    <input type="text" id="login_user" name="email" required placeholder="Enter your email">
+                </div>
+
+                <div>
+                    <label for="login_pass">Password</label>
+                    <input type="password" id="login_pass" name="password" required placeholder="Enter your password">
+                </div>
+
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openLogin() {
+            const modal = document.getElementById('loginModal');
+            modal.style.display = 'flex';
+        }
+
+        function closeLogin() {
+            const modal = document.getElementById('loginModal');
+            modal.style.display = 'none';
+        }
+
+        // to close modal when clicking outside of it
+        window.onclick = function (event) {
+            const modal = document.getElementById('loginModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+    </script>
+
+</body>
+
+</html>
